@@ -1,0 +1,86 @@
+﻿@page "/add-product"
+@page "/edit-product/{ProductId:int}"
+@using Microsoft.AspNetCore.Components.Forms
+
+@inject ProductService ProductService
+@inject NavigationManager NavigationManager
+
+<h3>@(ProductId == 0 ? "Додати новий товар" : "Редагувати товар")</h3>
+
+<EditForm Model="@product" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label for="name" class="form-label">Назва:</label>
+        <InputText id="name" class="form-control" @bind-Value="product.Name" />
+    </div>
+
+    <div class="mb-3">
+        <label for="description" class="form-label">Опис:</label>
+        <InputTextArea id="description" class="form-control" @bind-Value="product.Description" />
+    </div>
+
+    <div class="mb-3">
+        <label for="sku" class="form-label">SKU:</label>
+        <InputText id="sku" class="form-control" @bind-Value="product.SKU" />
+    </div>
+
+    <div class="mb-3">
+        <label for="unitOfMeasure" class="form-label">Одиниця виміру:</label>
+        <InputText id="unitOfMeasure" class="form-control" @bind-Value="product.UnitOfMeasure" />
+    </div>
+
+    @if (ProductId == 0) // При додаванні товару можна вказати початкову кількість
+    {
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Початкова кількість:</label>
+            <InputNumber id="quantity" class="form-control" @bind-Value="product.Quantity" />
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary">Зберегти</button>
+    <button type="button" class="btn btn-secondary" @onclick="Cancel">Скасувати</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int ProductId { get; set; } = 0; // 0 для нового товару
+
+    private Product product = new Product();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (ProductId != 0)
+        {
+            var existingProduct = await ProductService.GetProductByIdAsync(ProductId);
+            if (existingProduct != null)
+            {
+                product = existingProduct;
+            }
+            else
+            {
+                // Товар не знайдено, можливо, редирект або повідомлення
+                NavigationManager.NavigateTo("/products");
+            }
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (ProductId == 0)
+        {
+            await ProductService.AddProductAsync(product);
+        }
+        else
+        {
+            await ProductService.UpdateProductAsync(product);
+        }
+        NavigationManager.NavigateTo("/products");
+    }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/products");
+    }
+}
