@@ -4,10 +4,11 @@
 
 @inject ProductService ProductService
 @inject NavigationManager NavigationManager
+@rendermode InteractiveServer
 
 <h3>@(ProductId == 0 ? "Додати новий товар" : "Редагувати товар")</h3>
 
-<EditForm Model="@product" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="@product" OnValidSubmit="HandleValidSubmit" FormName=@(ProductId == 0? "add-product":"edit-product")>
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -41,6 +42,10 @@
 
     <button type="submit" class="btn btn-primary">Зберегти</button>
     <button type="button" class="btn btn-secondary" @onclick="Cancel">Скасувати</button>
+
+
+    <label for="nameTest" class="form-label">@product.Name</label>
+
 </EditForm>
 
 @code {
@@ -48,6 +53,11 @@
     public int ProductId { get; set; } = 0; // 0 для нового товару
 
     private Product product = new Product();
+
+    protected override async Task OnInitializedAsync()
+    {
+        product.Name = "123123";
+    }
 
     protected override async Task OnParametersSetAsync()
     {
@@ -63,6 +73,10 @@
                 // Товар не знайдено, можливо, редирект або повідомлення
                 NavigationManager.NavigateTo("/products");
             }
+        } 
+        else
+        {
+            //await HandleValidSubmit();
         }
     }
 

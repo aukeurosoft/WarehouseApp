@@ -24,8 +24,11 @@ public class ProductService
 
     public async Task AddProductAsync(Product product)
     {
-        _context.Products.Add(product);
-        await _context.SaveChangesAsync();
+        if (product.Name != null)
+        {
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+        }
     }
 
     public async Task UpdateProductAsync(Product product)

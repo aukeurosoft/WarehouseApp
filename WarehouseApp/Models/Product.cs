@@ -6,7 +6,7 @@
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Назва товару є обов'язковою.")]
+        //[Required(ErrorMessage = "Назва товару є обов'язковою.")]
         [StringLength(100, ErrorMessage = "Назва не може перевищувати 100 символів.")]
         public string Name { get; set; }
 
