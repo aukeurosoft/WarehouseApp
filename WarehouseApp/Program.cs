@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore; //DUK
 using WarehouseApp.Components;
-using WarehouseApp.Data; //DUK
+using WarehouseApp.Data;  //DUK
 
 var builder = WebApplication.CreateBuilder(args);
 
