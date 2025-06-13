@@ -19,8 +19,8 @@ public class Transaction
     [Range(1, int.MaxValue, ErrorMessage = "Кількість повинна бути більшою за нуль.")]
     public int Quantity { get; set; }
 
-    //[Range(1, int.MaxValue, ErrorMessage = "Кількість повинна бути більшою за нуль.")]
-    //public double Price { get; set; }
+    [Range(1, maximum: double.MaxValue, ErrorMessage = "Amount повинна бути більшою за нуль.")]
+    public double Amount { get; set; }
 
     [Required(ErrorMessage = "Товар є обов'язковим.")]
     public int ProductId { get; set; }
