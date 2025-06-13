@@ -32,6 +32,7 @@ else
                     <td>@(transaction.Type == TransactionType.Incoming ? "Прихід" : "Витрата")</td>
                     <td>@transaction.Product?.Name</td>
                     <td>@transaction.Quantity</td>
+                    @* <td>@transaction.Price</td> *@
                 </tr>
             }
         </tbody>

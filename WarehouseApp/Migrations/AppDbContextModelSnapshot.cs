@@ -15,9 +15,9 @@ namespace WarehouseApp.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "9.0.5");
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.6");
 
-            modelBuilder.Entity("WarehouseApp.Models.Product", b =>
+            modelBuilder.Entity("Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,6 +30,9 @@ namespace WarehouseApp.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("REAL");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("INTEGER");
@@ -47,7 +50,7 @@ namespace WarehouseApp.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("WarehouseApp.Models.Transaction", b =>
+            modelBuilder.Entity("Transaction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,9 +75,9 @@ namespace WarehouseApp.Migrations
                     b.ToTable("Transactions");
                 });
 
-            modelBuilder.Entity("WarehouseApp.Models.Transaction", b =>
+            modelBuilder.Entity("Transaction", b =>
                 {
-                    b.HasOne("WarehouseApp.Models.Product", "Product")
+                    b.HasOne("Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)

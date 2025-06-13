@@ -39,6 +39,22 @@
             <InputNumber id="quantity" class="form-control" @bind-Value="product.Quantity" />
         </div>
     }
+    @* else // При редагуванні товару кількість не редагується
+    {
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Початкова кількість:</label>
+            <InputNumber id="quantity" class="form-control" @bind-Value="product.Quantity" />
+        </div>
+    } *@
+
+    @* @if (ProductId != 0) // При редагуванні товару можна вказати ціну
+    {
+        <div class="mb-3">
+            <label for="price" class="form-label">Ціна:</label>
+            <InputNumber id="price" class="form-control" @bind-Value="product.Price" />
+        </div>
+    } *@
+   
 
     <button type="submit" class="btn btn-primary">Зберегти</button>
     <button type="button" class="btn btn-secondary" @onclick="Cancel">Скасувати</button>

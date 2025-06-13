@@ -60,5 +60,20 @@ public class ProductService
             throw new InvalidOperationException($"Товар з ID {productId} не знайдено.");
         }
     }
+
+    //public async Task UpdateProductPriceAsync(int productId, double changePrice)
+    //{
+    //    var product = await _context.Products.FindAsync(productId);
+    //    if (product != null)
+    //    {
+    //        product.Price += changePrice;
+    //        await _context.SaveChangesAsync();
+    //    }
+    //    else
+    //    {
+    //        throw new InvalidOperationException($"Товар з ID {productId} не знайдено.");
+    //    }
+    //}
+
 }
 //}

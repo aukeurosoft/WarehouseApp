@@ -21,7 +21,8 @@ namespace WarehouseApp.Migrations
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     SKU = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
                     UnitOfMeasure = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
-                    Quantity = table.Column<int>(type: "INTEGER", nullable: false)
+                    Quantity = table.Column<int>(type: "INTEGER", nullable: false),
+                    Price = table.Column<double>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
                 {
