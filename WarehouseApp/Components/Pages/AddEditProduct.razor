@@ -6,19 +6,19 @@
 @inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 
-<h3>@(ProductId == 0 ? "Додати новий товар" : "Редагувати товар")</h3>
+<h3>@(ProductId == 0 ? "Add new Item" : "Edit Item")</h3>
 
 <EditForm Model="@product" OnValidSubmit="HandleValidSubmit" FormName=@(ProductId == 0? "add-product":"edit-product")>
     <DataAnnotationsValidator />
     <ValidationSummary />
 
     <div class="mb-3">
-        <label for="name" class="form-label">Назва:</label>
+        <label for="name" class="form-label">Name of Item:</label>
         <InputText id="name" class="form-control" @bind-Value="product.Name" />
     </div>
 
     <div class="mb-3">
-        <label for="description" class="form-label">Опис:</label>
+        <label for="description" class="form-label">Description:</label>
         <InputTextArea id="description" class="form-control" @bind-Value="product.Description" />
     </div>
 
@@ -28,17 +28,22 @@
     </div>
 
     <div class="mb-3">
-        <label for="unitOfMeasure" class="form-label">Одиниця виміру:</label>
+        <label for="unitOfMeasure" class="form-label">Unit of measure:</label>
         <InputText id="unitOfMeasure" class="form-control" @bind-Value="product.UnitOfMeasure" />
     </div>
 
-    @if (ProductId == 0) // При додаванні товару можна вказати початкову кількість
+    @*//DUK:
+      YOU CAN NOT ADD QUANTITY BECAUSE OF THE PROBLEM WITH AMMOUNT.
+      YOU CAN ADD IT ONLY DURING TRANSACTION.
+    *@
+
+    @* @if (ProductId == 0) // При додаванні товару можна вказати початкову кількість
     {
         <div class="mb-3">
-            <label for="quantity" class="form-label">Початкова кількість:</label>
+            <label for="quantity" class="form-label">Start Quantity:</label>
             <InputNumber id="quantity" class="form-control" @bind-Value="product.Quantity" />
         </div>
-    }
+    } *@
     @* else // При редагуванні товару кількість не редагується
     {
         <div class="mb-3">
@@ -48,16 +53,22 @@
     } *@
 
     @* @if (ProductId != 0) // При редагуванні товару можна вказати ціну
-    {
+    { *@
+
+    <hr />
+    <h10>YOU CAN NOT ADD QUANTITY BECAUSE OF THE PROBLEM WITH AMOUNT.</h10>
+    <h6>YOU CAN ADD IT ONLY DURING TRANSACTION.</h6>
+    <hr />
+
         <div class="mb-3">
-            <label for="price" class="form-label">Ціна:</label>
+            <label for="price" class="form-label">Price:</label>
             <InputNumber id="price" class="form-control" @bind-Value="product.Price" />
         </div>
-    } *@
+    @* } *@
    
 
-    <button type="submit" class="btn btn-primary">Зберегти</button>
-    <button type="button" class="btn btn-secondary" @onclick="Cancel">Скасувати</button>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-secondary" @onclick="Cancel">Cancel</button>
 
 
     <label for="nameTest" class="form-label">@product.Name</label>

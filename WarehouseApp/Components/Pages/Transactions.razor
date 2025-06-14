@@ -3,25 +3,26 @@
 
 @inject TransactionService TransactionService
 
-<h3>Історія операцій</h3>
+<h3>History of Transactions</h3>
 
 @if (transactions == null)
 {
-    <p><em>Завантаження...</em></p>
+    <p><em>Dowloading...</em></p>
 }
 else if (!transactions.Any())
 {
-    <p>Операцій поки немає.</p>
+    <p>No Transactions yet</p>
 }
 else
 {
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th>Дата</th>
-                <th>Тип</th>
-                <th>Товар</th>
-                <th>Кількість</th>
+                <th>Date</th>
+                <th>Tipe</th>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Amount</th>
             </tr>
         </thead>
         <tbody>
@@ -29,10 +30,10 @@ else
             {
                 <tr>
                     <td>@transaction.Date.ToString("dd.MM.yyyy HH:mm")</td>
-                    <td>@(transaction.Type == TransactionType.Incoming ? "Прихід" : "Витрата")</td>
+                    <td>@(transaction.Type == TransactionType.Incoming ? "Incoming" : "Consumption")</td>
                     <td>@transaction.Product?.Name</td>
                     <td>@transaction.Quantity</td>
-                    @* <td>@transaction.Price</td> *@
+                    <td>@transaction.Amount</td>
                 </tr>
             }
         </tbody>

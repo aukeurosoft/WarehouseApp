@@ -19,6 +19,14 @@ public class TransactionService
 
     public async Task AddTransactionAsync(Transaction transaction)
     {
+        if (transaction.Quantity <= 0)
+        {
+            throw new ArgumentException("Quantity must be greater than zero.", nameof(transaction.Quantity));
+        }
+        transaction.Amount = transaction.Type == TransactionType.Incoming 
+            ? transaction.Quantity * (await _context.Products.FindAsync(transaction.ProductId))?.Price ?? 0 
+            : -transaction.Quantity * (await _context.Products.FindAsync(transaction.ProductId))?.Price ?? 0;
+
         _context.Transactions.Add(transaction);
         await _context.SaveChangesAsync();
     }
